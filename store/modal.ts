@@ -1,23 +1,45 @@
 import { create } from "zustand";
 
 export enum ModalType {
-  decision = "DECISION",
-  accept = "ACCEPT",
+  Decision = "DECISION",
+  Accept = "ACCEPT",
 }
 
-type State = {
+type ModalState = {
   isOpen: boolean;
   type: ModalType | null;
+  title: string;
+  description: string;
 };
 
-type Actions = {
-  open: (type: ModalType) => void;
-  close: () => void;
+type Modal = {
+  type: ModalType;
+  title: string;
+  description: string;
 };
 
-export const useModalStore = create<State & Actions>((set) => ({
+type ModalActions = {
+  openModal: (modal: Modal) => void;
+  closeModal: () => void;
+};
+
+export const useModalStore = create<ModalState & ModalActions>((set) => ({
   isOpen: false,
   type: null,
-  open: (type) => set({ isOpen: true, type }),
-  close: () => set({ isOpen: false }),
+  title: "",
+  description: "",
+  openModal: (modal: Modal) =>
+    set({
+      isOpen: true,
+      type: modal.type,
+      title: modal.title,
+      description: modal.description,
+    }),
+  closeModal: () =>
+    set({
+      isOpen: false,
+      type: null,
+      title: "",
+      description: "",
+    }),
 }));

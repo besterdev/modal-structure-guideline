@@ -5,18 +5,29 @@ import { ModalType, useModalStore } from "@/store/modal";
 import { DecisionModal, AcceptModal } from "@/components/modal";
 
 const ModalProvider = () => {
-  const isOpen = useModalStore((state) => state.isOpen);
-  const close = useModalStore((state) => state.close);
-  const modalType = useModalStore((state) => state.type);
+  const { isOpen, title, description, closeModal, type: modalType } = useModalStore();
 
-  const mapModal = {
-    [ModalType.decision]: (
-      <DecisionModal isOpen={isOpen} onClose={close} onContinue={close} />
+  const modalMap: Record<ModalType, JSX.Element | null> = {
+    [ModalType.Decision]: (
+      <DecisionModal
+        isOpen={isOpen}
+        title={title}
+        description={description}
+        onClose={closeModal}
+        onContinue={closeModal}
+      />
     ),
-    [ModalType.accept]: <AcceptModal isOpen={isOpen} onContinue={close} />,
+    [ModalType.Accept]: (
+      <AcceptModal
+        isOpen={isOpen}
+        title={title}
+        description={description}
+        onContinue={closeModal}
+      />
+    ),
   };
 
-  return mapModal[modalType as ModalType] || null;
+  return isOpen && modalType ? modalMap[modalType] : null;
 };
 
 export default ModalProvider;

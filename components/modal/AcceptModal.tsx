@@ -11,17 +11,19 @@ import { Button } from "@/components/ui/button";
 
 interface AcceptModalProps {
   isOpen: boolean;
+  title: string;
+  description: string;
   onContinue: () => void;
 }
 
-const AcceptModal = ({ isOpen, onContinue }: AcceptModalProps) => {
+const AcceptModal = ({ isOpen, title, description, onContinue }: AcceptModalProps) => {
   return (
     <AlertDialog open={isOpen}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Unavailable confirmation 🔥</AlertDialogTitle>
+          <AlertDialogTitle>{title}</AlertDialogTitle>
           <AlertDialogDescription>
-            You have already confirmed your seat or already joined this activity
+            {description}
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

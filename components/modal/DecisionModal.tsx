@@ -12,18 +12,19 @@ import { Button } from "@/components/ui/button";
 
 interface DecisionModalProps {
   isOpen: boolean;
+  title: string;
+  description: string;
   onClose: () => void;
   onContinue: () => void;
 }
 
-const DecisionModal = ({ isOpen, onClose, onContinue }: DecisionModalProps) => (
+  const DecisionModal = ({ isOpen, title, description, onClose, onContinue }: DecisionModalProps) => (
   <AlertDialog open={isOpen}>
     <AlertDialogContent className="rounded-lg">
       <AlertDialogHeader>
-        <AlertDialogTitle>Privacy info 🚀</AlertDialogTitle>
+        <AlertDialogTitle>{title}</AlertDialogTitle>
         <AlertDialogDescription>
-          The backups created with this functionality may contain some sensitive
-          data.
+          {description}
         </AlertDialogDescription>
       </AlertDialogHeader>
       <AlertDialogFooter>
