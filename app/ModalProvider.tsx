@@ -1,11 +1,13 @@
 "use client";
 
-import { ModalType, useModalStore } from "@/store/modal";
+import { useModalStore } from "@/store/modal";
 
 import { DecisionModal, AcceptModal } from "@/components/modal";
 
+import { ModalType } from "@/types/modal";
+
 const ModalProvider = () => {
-  const { isOpen, title, description, closeModal, type: modalType } = useModalStore();
+  const { isOpen, title, description, onContinue, closeModal, type: modalType } = useModalStore();
 
   const modalMap: Record<ModalType, JSX.Element | null> = {
     [ModalType.Decision]: (
@@ -14,16 +16,14 @@ const ModalProvider = () => {
         title={title}
         description={description}
         onClose={closeModal}
-        onContinue={closeModal}
-      />
+        onContinue={onContinue} />
     ),
     [ModalType.Accept]: (
       <AcceptModal
         isOpen={isOpen}
         title={title}
         description={description}
-        onContinue={closeModal}
-      />
+        onContinue={onContinue} />
     ),
   };
 
