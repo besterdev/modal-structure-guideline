@@ -27,6 +27,7 @@ type ModalState = {
   isOpen: boolean;
   title: string;
   description: string;
+  isLoading: boolean;
   onContinue: () => void;
   onClose: () => void;
 };

@@ -8,6 +8,8 @@ import { ModalType } from "@/types/modal";
 
 const Home = () => {
   const openModal = useModalStore((state) => state.openModal);
+  const closeModal = useModalStore((state) => state.closeModal);
+  const setLoading = useModalStore((state) => state.setLoading);
 
   const handleOpenDecisionModal = () => {
     openModal({
@@ -15,7 +17,11 @@ const Home = () => {
       title: "Privacy info 🚀",
       description: "The backups created with this functionality may contain some sensitivedata.",
       onClose: () => console.log("close"),
-      onContinue: () => console.log("continue"),
+      onContinue: async () => {
+        setLoading(true);
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        closeModal();
+      }
     });
   };
 
@@ -24,7 +30,11 @@ const Home = () => {
       type: ModalType.Accept,
       title: "Unavailable confirmation 🔥",
       description: "You have already confirmed your seat or already joined this activity",
-      onContinue: () => console.log("continue"),
+      onContinue: async () => {
+        setLoading(true);
+        await new Promise((resolve) => setTimeout(resolve, 2000));
+        closeModal();
+      }
     });
   };
 
